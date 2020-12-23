@@ -55,26 +55,33 @@ url="https://www.youtube.com/watch?v=Cs32gaFg4mo"
 # https://www.youtube.com/watch?v=x5HjZcz_GC8
 # https://www.youtube.com/watch?v=OQTImQ0RQNg
 
+#speed=${2:-1}
+speed="2"
+
 mp4af=140
 mp4vf=136
 #vf='bestvideo[vcodec!=vp9][height<=720]'
 #af='bestaudio'
 
+speed_filters=""
+video_codec=" -c:v copy "
+audio_codec=" -c:a copy "
+#if [ -v "1" ] && [ "$1" -ne "1" ]; then
+#if [ ! "$speed" = "1" ]; then
+echo "calc speed"
+    _sp=$(echo "scale=5; $speed" | bc)
+    _sp_inv=$(echo "scale=5; 1 / ${_sp}" | bc)
+    speed_filters=" -filter:v setpts=${_sp_inv}*PTS -filter:a atempo=${_sp} "
+    video_codec=" -c:v libx264 -preset ultrafast -crf 24 "
+    audio_codec=" -c:a aac -b:a 127k "
+#fi
+echo "$_sp speed"
+webm=" -f webm "
+mp4=" -f mp4 -movflags frag_keyframe+empty_moov "
+
 echo "queueing downloads..."
 youtube-dl -q -f $mp4vf -o - "$url" > video_stream &
 youtube-dl -q -f $mp4af -o - "$url" > audio_stream &
-
-speed_filters=""
-video_codec=" -c:v copy "
-if [ -v "1" ] && [ "$1" -ne "1" ]; then
-    speed=$(echo "scale=5;$1" | bc)
-    speed_inv=$(echo "scale=5;1/$speed" | bc)
-    speed_filters=" -filter:v setpts=${speed_inv}*PTS -filter:a atempo=${speed} "
-    video_codec=" -c:v libx264 -preset ultrafast -crf 24 "
-fi
-
-webm=" -f webm "
-mp4=" -f mp4 -movflags frag_keyframe+empty_moov "
 
 sleep 1
 
@@ -84,7 +91,9 @@ ffmpeg \
     -i video_stream \
     -thread_queue_size 8000 \
     -i audio_stream \
-    -c copy \
+    $video_codec \
+    $audio_codec \
+    $speed_filters \
     $mp4 \
     pipe:1 > combined &
  
