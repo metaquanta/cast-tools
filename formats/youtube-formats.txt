@@ -1,0 +1,31 @@
+7 249 webm audio only tiny opus @ 50k (48000Hz)
+7 250 webm audio only tiny opus @ 70k (48000Hz)
+8 251 webm audio only tiny opus @160k (48000Hz)     *******
+
+7 278 webm 144p webm container, vp9, video only
+7 242 webm 240p vp9, video only
+7 243 webm 360p vp9, video only
+7 244 webm 480p vp9, video only
+7 247 webm 720p vp9, video only
+7 248 webm 1080p vp9, video only
+2 271 webm 1440p vp9, video only
+1 313 webm 2160p vp9, video only
+
+8 18 mp4 360p avc1.42001E, mp4a.40.2@ 96k (44100Hz)
+8 140 m4a audio only tiny m4a_dash container, mp4a.40.2@128k (44100Hz)
+3 22 mp4 720p avc1.64001F, mp4a.40.2@192k (44100Hz) ***
+
+8 160 mp4 144p avc1.4d400b/avc1.4d400c, video only
+8 133 mp4 240p avc1.4d400d/avc1.4d4015, video only
+8 134 mp4 360p avc1.4d4015/avc1.4d401e, video only
+7 135 mp4 480p avc1.4d401e/avc1.4d401f, video only
+7 136 mp4 720p avc1.4d401f, video only              ****
+7 137 mp4 1080p avc1.640028, video only             ***
+
+2 394 mp4 144p av01.0.00M.08, video only
+2 395 mp4 240p av01.0.00M.08, video only
+2 396 mp4 360p av01.0.01M.08, video only
+2 397 mp4 480p av01.0.04M.08, video only
+2 398 mp4 720p av01.0.05M.08, video only            **
+2 399 mp4 1080p av01.0.08M.08, video only
+1 400 mp4 1440p av01.0.12M.08, video only

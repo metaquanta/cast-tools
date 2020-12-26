@@ -1,0 +1,12 @@
+mp4a.40.2
+mp4a.40.5
+mp4a.69
+mp4a.6B
+
+avc1.42E01E     3.0     baseline
+avc1.42E01F     3.1     baseline
+avc1.4D401F     3.1     main
+avc1.4D4028     4.0     main
+avc1.640028     4.0     high 	
+avc1.640029     4.1     high 	
+avc1.64002A     4.2     high 	
