@@ -4,7 +4,7 @@
 vf="bestvideo"
 af="bestaudio"
 
-defaultffopts="-loglevel 24 -c:v copy -c:a copy -movflags frag_keyframe+empty_moov"
+defaultffopts="-c:v copy -c:a copy -movflags frag_keyframe+empty_moov"
 
 ffopts=""
 ytdlopts=""
@@ -62,7 +62,7 @@ youtube-dl -q -f $vf -o - $ytdlopts > .video_stream &
 youtube-dl -q -f $af -o - $ytdlopts > .audio_stream &
 
 echo "muxing..."
-ffmpeg \
+ffmpeg -loglevel 16 \
     -thread_queue_size 8000 \
     -i .video_stream \
     -thread_queue_size 8000 \
@@ -71,9 +71,9 @@ ffmpeg \
     -f dash stream.mpd &
 
 echo -n "waiting for segment.."
-while ! test -f "${name}/stream.mpd"; do
+while ! test -f "stream.mpd"; do
     sleep 1
     echo -n "."
 done
 echo ""
-echo ${name}/stream.mpd
+echo $(realpath ./stream.mpd)
