@@ -21,6 +21,7 @@ Options:
     -ff, --ffmpeg-options "-loglevel 24 -c:v copy -c:a copy -movflags frag_keyframe+empty_moov"
     -d, --directory-name  <...........>
 EOF
+            exit 1
             ;;
         -af|--audio-format) 
             af=$2 
