@@ -44,7 +44,7 @@ EOF
     esac
 done
 
-name=${name:-$( echo $video | sed -E -e 's/^.*\?v=([a-zA-Z0-9]*).*$/\1/' )}
+#name=${name:-$( echo $video | sed -E -e 's/^.*\?v=([a-zA-Z0-9]*).*$/\1/' )}
 
 echo ff=[$ff] af=[$af] vf=[$vf] name=[$name] video=[$video]
 

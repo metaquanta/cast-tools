@@ -16,9 +16,9 @@ Usage: $0 [OPTIONS] [youtube-dl OPTIONS ...]
 
 Options:
     -h, --help
-    -af, --audio-format   "bestaudio"
-    -vf, --video-format   "bestvideo"
-    -ff, --ffmpeg-options "-loglevel 24 -c:v copy -c:a copy -movflags frag_keyframe+empty_moov"
+    -af, --audio-format   "$af"
+    -vf, --video-format   "$vf"
+    -ff, --ffmpeg-options "$defaultffopts"
     -d, --directory-name  <...........>
 EOF
             exit 1
@@ -49,7 +49,7 @@ done
 ffopts=${ffopts:-$defaultffopts}
 name=${name:-$( echo $ytdlopts | sed -E -e 's/^.*\?v=([a-zA-Z0-9]*).*$/\1/' )}
 
-echo af=[$af] vf=[$vf] ff=[$ffopts] file=[$2] ytdlopts=[$ytdlopts] name=[$name]
+#echo af=[$af] vf=[$vf] ff=[$ffopts] ytdlopts=[$ytdlopts] name=[$name]
 
 mkdir -p ./${name}
 cd ./${name}
@@ -69,3 +69,11 @@ ffmpeg \
     -i .audio_stream \
     $ffopts \
     -f dash stream.mpd &
+
+echo -n "waiting for segment.."
+while ! test -f "${name}/stream.mpd"; do
+    sleep 1
+    echo -n "."
+done
+echo ""
+echo ${name}/stream.mpd
