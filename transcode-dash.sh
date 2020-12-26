@@ -10,14 +10,14 @@ while (( "$#" )); do
     case "$1" in
         -h|--help)
             cat <<EOF
-Usage: $0 [OPTIONS] [youtube-dl OPTIONS ...]
+Usage: $0 [OPTIONS] <video>
 
 Options:
     -h, --help
     -a, --transcode-audio   "$af"
     -v, --transcode-video   "$vf"
-    -f, --filter "$ff"
-    -d, --directory-name  <...........>
+    -f, --filter            "$ff"
+    -d, --directory-name    <...........>
 EOF
             exit 1
             ;;
