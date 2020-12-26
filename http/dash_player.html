@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@3.0.6/dist/shaka-player.compiled.min.js"></script>
+  <style>
+
+
+body, div, video {
+  margin:0px;
+  width:100%;
+  background:black;
+}
+div {
+  height:100%;
+  position:fixed;
+}
+video {
+  top:50%;
+  position:relative;
+  transform:translateY(-50%);
+}
+
+
+  </style>
+  <script>
+
+
+const mpd="stream.mpd";
+
+const loadMpd = () => fetch(mpd)
+    .then(resp => {
+        if(resp.ok) window.player.load(mpd, 0)
+        else window.setTimeout(loadMpd, 1000)
+    });
+document.addEventListener('DOMContentLoaded', () => {
+    window.player = new shaka.Player(document.getElementById('video'));
+    loadMpd();
+});
+
+
+  </script>
+</head>
+<body>
+  <div>
+    <video id="video" autoplay></video>
+  </div>
+</body>
+</html>
