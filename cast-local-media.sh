@@ -17,12 +17,17 @@ EOF
             exit 1
             ;;
         -a|--audio-format)
-            a="-c:a libopus -ac 2 -b:a 150000"
-	    #a="-c:a libvorbis -ac 2 -aq 9"
+            a="-c:a aac -ac 2 -b:a 128k"
+            #a="-c:a libopus -ac 2 -b:a 150000"
+	        #a="-c:a libvorbis -ac 2 -aq 9"
             shift 1
             ;;
         -v|--video-format)
             v="-c:v libx264 -preset ultrafast -crf 24"
+            shift 1
+            ;;
+        -s|--subtitles)
+            subs=1
             shift 1
             ;;
         *) 
@@ -41,7 +46,9 @@ dash="http://${addr}/dash"
 
 dir=$( md5sum "$file" | cut -d \  -f 1 )
 afile=$( realpath "$file" )
-
+if [ -n "$subs" ]; then
+    v="$v -vf subtitles='$afile'"
+fi
 cd $path
 ${tools}/transcode-dash.sh -a "$a" -v "$v" -d "$dir" "$afile"
 #echo dash=[$dash] name=[$name]
